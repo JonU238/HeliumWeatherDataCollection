@@ -13,20 +13,18 @@ def reward(n=30):
     response = requests.request("GET",url)
     return(response.json())
 def wittnesed():
-    url = "https://api.helium.io/v1/hotspots/"+config[0]+"/witnessed"
+    url = "https://api.helium.io/v1/hotspots/"+config[0][0:-1]+"/witnesses"
     response = requests.request("GET",url)
     return(response.json())
-    
-
 def weather(num):
-    url = "https://api.openweathermap.org/data/2.5/onecall?lat=42.291961&lon=-71.329079&exclude=hourly,daily&appid="+config[3]
+    url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=hourly,daily&appid="+config[3]
     response = requests.request("GET",url)
     if num==1:
         return response.json()["current"]["temp"]
     elif num==2:
         return "Temp: " + str(round((response.json()["current"]["temp"]-273.15)*(9/5)+32,2)) +"\n"+"Wind speed: "+ str(response.json()["current"]["wind_speed"]) +"\n"+"Wind Gust: "+ str(response.json()["current"]["wind_gust"])
 #weather data part
-url = "https://api.openweathermap.org/data/2.5/onecall?lat=42.291961&lon=-71.329079&exclude=hourly,daily&appid="+config[3]
+url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=hourly,daily&appid="+config[3]
 response = requests.request("GET",url)
 f = open('testing.txt','a')
 f.write(str(datetime.now())+"&")
@@ -35,9 +33,8 @@ f.write(str((response.json()["current"]["weather"]))+"&")
 #weather data end
 #helium data start
 data = wittnesed()
-print("Hello")
+print(config)
 for i in range(1,len(data["data"])):
-    print("Hello")
     print((data["data"][i]["status"]["timestamp"]))
     
     if (data["data"][i]["status"]["timestamp"])[0:10]==str(datetime.now().isoformat())[0:10]:
@@ -48,7 +45,6 @@ for i in range(1,len(data["data"])):
 #end of helium data
 f.write("\n")
 f.close()
-#print(response.json()["current"])
 
 
 
