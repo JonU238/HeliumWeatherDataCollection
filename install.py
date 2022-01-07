@@ -1,7 +1,7 @@
 import time
 import requests
 from requests.api import request
-f=open("config.txt",'r+')
+f=open("config.txt",'w')
 f.truncate(0)
 f.close()
 print("Thank you for installing Helium weather corolation data collection service")
