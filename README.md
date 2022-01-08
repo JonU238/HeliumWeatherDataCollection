@@ -9,6 +9,9 @@ I think that the network will preform differently in different weather condition
 This data is stored in the testing.txt file in the format
 (Timestamp)&(temp)&(weather description)&(timestamp of wittness)&(gain)
 
+## Next steps
+After I have collected enough data I will write and publish a script to turn the data into a cool graph to see if there is a coralation.
+
 
 
 
