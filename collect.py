@@ -25,11 +25,14 @@ def weather(num):
         return "Temp: " + str(round((response.json()["current"]["temp"]-273.15)*(9/5)+32,2)) +"\n"+"Wind speed: "+ str(response.json()["current"]["wind_speed"]) +"\n"+"Wind Gust: "+ str(response.json()["current"]["wind_gust"])
 #weather data part
 def collect():
-    url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=hourly,daily&appid="+config[3]
+    url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=clear&appid="+config[3]
     response = requests.request("GET",url)
     f = open('testing.txt','a')
     f.write(str(datetime.now())+"&")
-    f.write(str(round(response.json()["current"]["temp"]-273.15,3))+"&")
+    tempmin=(response.json()["daily"][0]["temp"]["min"])-273.15
+    tempmax=(response.json()["daily"][0]["temp"]["max"])-273.15
+    avgtemp = round((tempmin+tempmax)/2,3)
+    f.write(str(avgtemp)+"&")
     f.write(str((response.json()["current"]["weather"]))+"&")
     #weather data end
     #helium data start
@@ -42,6 +45,5 @@ def collect():
     #end of helium data
     f.write("\n")
     f.close()
-
-
+collect()
 
