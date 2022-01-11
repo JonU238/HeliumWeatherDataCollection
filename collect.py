@@ -42,7 +42,6 @@ def collect():
     #end of helium data
     f.write("\n")
     f.close()
-collect()
 
 
 
