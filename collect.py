@@ -24,27 +24,28 @@ def weather(num):
     elif num==2:
         return "Temp: " + str(round((response.json()["current"]["temp"]-273.15)*(9/5)+32,2)) +"\n"+"Wind speed: "+ str(response.json()["current"]["wind_speed"]) +"\n"+"Wind Gust: "+ str(response.json()["current"]["wind_gust"])
 #weather data part
-url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=hourly,daily&appid="+config[3]
-response = requests.request("GET",url)
-f = open('testing.txt','a')
-f.write(str(datetime.now())+"&")
-f.write(str(round(response.json()["current"]["temp"]-273.15,3))+"&")
-f.write(str((response.json()["current"]["weather"]))+"&")
-#weather data end
-#helium data start
-data = wittnesed()
-print(config)
-for i in range(1,len(data["data"])):
-    print((data["data"][i]["status"]["timestamp"]))
-    
-    if (data["data"][i]["status"]["timestamp"])[0:10]==str(datetime.now().isoformat())[0:10]:
-        print("das ist dastag")
-        print(str(datetime.now().isoformat())[0:10])
-        f.write(str(data["data"][i]["status"]["timestamp"]+"&"))
-        f.write(str(data["data"][i]["gain"])+"&")
-#end of helium data
-f.write("\n")
-f.close()
+def collect():
+    url = "https://api.openweathermap.org/data/2.5/onecall?lat="+config[1][0:-1]+"&lon="+config[2][0:-1]+"&exclude=hourly,daily&appid="+config[3]
+    response = requests.request("GET",url)
+    f = open('testing.txt','a')
+    f.write(str(datetime.now())+"&")
+    f.write(str(round(response.json()["current"]["temp"]-273.15,3))+"&")
+    f.write(str((response.json()["current"]["weather"]))+"&")
+    #weather data end
+    #helium data start
+    data = wittnesed()
+    print(config)
+    for i in range(1,len(data["data"])):
+        print((data["data"][i]["status"]["timestamp"]))
+        
+        if (data["data"][i]["status"]["timestamp"])[0:10]==str(datetime.now().isoformat())[0:10]:
+            print("das ist dastag")
+            print(str(datetime.now().isoformat())[0:10])
+            f.write(str(data["data"][i]["status"]["timestamp"]+"&"))
+            f.write(str(data["data"][i]["gain"])+"&")
+    #end of helium data
+    f.write("\n")
+    f.close()
 
 
 
