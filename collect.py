@@ -34,18 +34,15 @@ def collect():
     #weather data end
     #helium data start
     data = wittnesed()
-    print(config)
     for i in range(1,len(data["data"])):
         print((data["data"][i]["status"]["timestamp"]))
-        
         if (data["data"][i]["status"]["timestamp"])[0:10]==str(datetime.now().isoformat())[0:10]:
-            print("das ist dastag")
-            print(str(datetime.now().isoformat())[0:10])
             f.write(str(data["data"][i]["status"]["timestamp"]+"&"))
             f.write(str(data["data"][i]["gain"])+"&")
     #end of helium data
     f.write("\n")
     f.close()
+collect()
 
 
 
